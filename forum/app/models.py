@@ -11,8 +11,8 @@ class User(AbstractUser):
 
     avatar = models.ImageField(null=True, default="avatar.svg")
 
-    # USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
 
 class Theme(models.Model):
@@ -37,9 +37,9 @@ class Question(models.Model):
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    
-    like = models.IntegerField()
-    dislike = models.IntegerField()
+    favorite = models.IntegerField(default=0)
+    like = models.ManyToManyField(User, related_name='like', blank=True)
+    dislike = models.ManyToManyField(User, related_name='dislike', blank=True)
     view = models.IntegerField( null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -56,8 +56,10 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True, related_name='answer')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    like = models.IntegerField()
-    dislike = models.IntegerField()
+    like = models.IntegerField(default=0)
+    dislike = models.IntegerField(default=0)
+    favorite = models.IntegerField(default=0)
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='user')
 
     class Meta:

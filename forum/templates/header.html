@@ -1,3 +1,4 @@
+{% load static %}
 <nav class="panel-menu" id="mobile-menu">
     <ul>
 
@@ -27,7 +28,7 @@
                 <!-- /toggle mobile menu -->
                 <!-- logo -->
                 <div class="tt-logo">
-                    <a href="index.html"><img src="images/logo.png" alt=""></a>
+                    <a href="/"><img src="{% static 'images/logo.png' %}" alt=""></a>
                 </div>
                 <!-- /logo -->
                 <!-- desctop menu -->
@@ -151,8 +152,27 @@
             </div>
             <div class="col-auto ml-auto">
                 <div class="tt-account-btn">
-                    <a href="page-login.html" class="btn btn-primary">Log in</a>
-                    <a href="page-signup.html" class="btn btn-secondary">Sign up</a>
+                    {% if request.user.is_authenticated %}
+                   
+                  
+                    <div class="col-auto ml-auto">
+                        <div class="tt-user-info d-flex justify-content-center">
+                            <a href="{% url 'update-user' %}">
+                           <div class="tt-avatar-icon tt-size-md">
+                                <img src="{{request.user.avatar.url}}" width="40" height="40" style="border-radius: 50%;"/>
+                           </div>
+                           <div >
+                               @{{request.user.username}}
+                            </a>
+                           </div><a href="{% url 'logout' %}" class="btn btn-secondary">Log Out</a>
+                       </div>
+                   </div>
+                    
+                    {% else %}
+
+                    <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
+                    <a href="{% url 'register' %}" class="btn btn-secondary">Sign up</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
