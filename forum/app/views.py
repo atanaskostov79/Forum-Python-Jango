@@ -104,11 +104,11 @@ def questionIndex(request, pk):
     return render(request, 'app/question.html', content)
 
 def theme(request, pk):
-    theme = Theme.objects.get(id=pk)
-    question = Question.objects.get(theme_id=pk)
+    theme = Theme.objects.filter(id=pk)
+    question = Question.objects.filter(theme_id=pk)
 
-    print(theme)
+    print(question)
     content = { 'questions': question }
-    return render(request, 'app/question.html', content)
+    return render(request, 'app/index.html', content)
 
     
