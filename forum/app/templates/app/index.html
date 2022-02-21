@@ -1,0 +1,73 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<main id="tt-pageContent" class="tt-offset-small">
+    <div class="container">
+        <div class="tt-topic-list">
+            <div class="tt-list-header">
+                <div class="tt-col-topic">Topic</div>
+                <div class="tt-col-category">Category</div>
+                <div class="tt-col-value hide-mobile">Likes</div>
+                <div class="tt-col-value hide-mobile">Replies</div>
+                <div class="tt-col-value hide-mobile">Views</div>
+                <div class="tt-col-value">Activity</div>
+            </div>
+            <div class="tt-topic-alert tt-alert-default" role="alert">
+              <a href="#" target="_blank">4 new posts</a> are added recently, click here to load them.
+            </div>
+<!--            {% for theme in themes %}-->
+<!--            {{theme.title}}-->
+
+<!--            {% endfor %}-->
+            {% for question in questions %}
+           
+
+
+
+
+            <div class="tt-item tt-itemselect">
+                <div class="tt-col-avatar">
+                    <img src="{{question.user.avatar.url}}" />
+
+                </div>
+                <div class="tt-col-description">
+                    <h6 class="tt-title"><a href="{% url 'question' question.id %}">
+                        <svg class="tt-icon">
+                          <use xlink:href="#icon-pinned"></use>
+                        </svg>
+                        {{question.title}}
+                    </a></h6>
+                    <div class="row align-items-center no-gutters">
+                        <div class="col-11">
+                            <ul class="tt-list-badge">
+                                <li class="show-mobile"><a href="#"><span class="tt-color01 tt-badge">politics</span></a></li>
+                                <li><a href="#"><span class="tt-badge">contests</span></a></li>
+                                <li><a href="#"><span class="tt-badge">authors</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="col-1 ml-auto show-mobile">
+                            <div class="tt-value">1h</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tt-col-category"><span class="tt-color01 tt-badge" style="background-color: {{question.theme.color}};">{{question.theme}}</span></div>
+                <div class="tt-col-value hide-mobile">{{question.like}}</div>
+                <div class="tt-col-value tt-color-select hide-mobile">{{question.answer.count}}
+                    <!-- {% for an in questions %}
+                    {{an.body}}
+                    {% endfor%}
+` -->
+
+                </div>
+                <div class="tt-col-value hide-mobile">{{question.view}}</div>
+                <div class="tt-col-value hide-mobile">{{ question.updated|timesince}}</div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}
