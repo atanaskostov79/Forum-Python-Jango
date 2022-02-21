@@ -14,4 +14,7 @@ urlpatterns = [
     path('questionlike/<str:pk>', views.questionLike, name='questionlike'),
     path('questiondislike/<str:pk>', views.questionDislike, name='questiondislike'),
 
+    path('theme/<str:pk>', views.theme, name='theme'),
+
+
 ]

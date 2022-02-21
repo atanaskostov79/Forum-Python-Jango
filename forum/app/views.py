@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import context
@@ -100,6 +101,14 @@ def questionIndex(request, pk):
     question.view +=1 
     question.save()
     content = { 'question': question}
+    return render(request, 'app/question.html', content)
+
+def theme(request, pk):
+    theme = Theme.objects.get(id=pk)
+    question = Question.objects.get(theme_id=pk)
+
+    print(theme)
+    content = { 'questions': question }
     return render(request, 'app/question.html', content)
 
     
