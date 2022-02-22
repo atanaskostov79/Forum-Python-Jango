@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="tt-item-description">
-                {{question.body}}
+                {% autoescape off %}   {{question.body}} {% endautoescape %}
               
             </div>
             <div class="tt-item-info info-bottom">
@@ -73,15 +73,17 @@
             <h6 class="tt-title">Frequent Posters</h6>
             <div class="tt-row-icon">
                 {% for an in question.answer.all %}
+                {% ifchanged %}    
+
                 <div class="tt-item">
-                   
+                    
                     <a href="#" class=" tt-icon-avatar">
-                        <svg><use xlink:href="#icon-ava-{{an.user.username|make_list|first}}"></use></svg>
+                        <svg><use xlink:href="#icon-ava-{{an.user.username | make_list | first}}"></use></svg>
                     
                     </a>
                   
                 </div>
-
+                {% endifchanged %}
                 {% endfor %}
  
             </div>
@@ -107,7 +109,7 @@
                 </div>
             </div>
             <div class="tt-item-description">
-                {{an.body}}    
+                {% autoescape off %}   {{an.body}}    {% endautoescape %}
             </div>
             <div class="tt-item-info info-bottom">
                 <a href="#" class="tt-icon-btn">
@@ -138,7 +140,7 @@
     {% endfor %}
 </div>
 <h3>Add answer</h3>
-<form method="POSТ" action="{% url 'addanswer' question.id %}">
+<form method="POST" action="{% url 'addanswer' question.id %}">
     {% csrf_token %}
     <textarea name="content" id="editor">
     </textarea>    

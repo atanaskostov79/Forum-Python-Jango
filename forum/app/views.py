@@ -94,9 +94,12 @@ def questionDislike(request, pk):
     question.save()
     return redirect('question', pk)
 
-@login_required(login_url='login')
+
 def questionIndex(request, pk):
     question = Question.objects.get(id=pk)
+    answer = Answer.objects.get(id=6)
+    # user = answer.user_set.all()
+    print(answer)
     # if (ak == 'like'):
     #     question.like += 1
     # elif(ak == 'dislike'):
@@ -117,15 +120,16 @@ def theme(request, pk):
 @login_required(login_url='login')
 def addanswer(request, pk):
     question = Question.objects.get(id=pk)
-    print(request.POST.get('content')  + "ssssssssssssss" )
     if request.method == 'POST':
+        print(request.POST.get('content') + "ddddddddddddddddddd")
+
         Answer.objects.create(
             user=request.user,
             question=question,
             body=request.POST.get('content')
         )
 
-    return render(request, 'app/index.html')
+    return redirect('question', pk)
 
 
 
