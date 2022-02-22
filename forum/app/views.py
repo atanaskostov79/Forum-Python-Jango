@@ -79,19 +79,22 @@ def index(request):
     content = {'themes': theme, 'questions': questions}
     print(questions)
     return render(request, 'app/index.html', content)
-    
+
+@login_required(login_url='login')
 def questionLike(request, pk):
     question = Question.objects.get(id=pk)
     question.like.add(request.user)
     question.save()
     return redirect('question', pk)
 
+@login_required(login_url='login')
 def questionDislike(request, pk):
     question = Question.objects.get(id=pk)
     question.dislike.add(request.user)
     question.save()
     return redirect('question', pk)
 
+@login_required(login_url='login')
 def questionIndex(request, pk):
     question = Question.objects.get(id=pk)
     # if (ak == 'like'):
@@ -110,5 +113,20 @@ def theme(request, pk):
     print(question)
     content = { 'questions': question }
     return render(request, 'app/index.html', content)
+
+@login_required(login_url='login')
+def addanswer(request, pk):
+    question = Question.objects.get(id=pk)
+    print(request.POST.get('content')  + "ssssssssssssss" )
+    if request.method == 'POST':
+        Answer.objects.create(
+            user=request.user,
+            question=question,
+            body=request.POST.get('content')
+        )
+
+    return render(request, 'app/index.html')
+
+
 
     

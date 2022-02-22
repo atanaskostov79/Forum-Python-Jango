@@ -137,6 +137,17 @@
     </div>
     {% endfor %}
 </div>
+<h3>Add answer</h3>
+<form method="POSТ" action="{% url 'addanswer' question.id %}">
+    {% csrf_token %}
+    <textarea name="content" id="editor">
+    </textarea>    
+    <p>
+        <input type="submit" value="Add" class="btn btn-secondary" />
+
+    </p>
+</form>
+
 
     </div>
     </main>    

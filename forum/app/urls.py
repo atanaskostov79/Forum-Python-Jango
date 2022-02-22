@@ -13,6 +13,7 @@ urlpatterns = [
     path('question/<str:pk>', views.questionIndex, name='question'),
     path('questionlike/<str:pk>', views.questionLike, name='questionlike'),
     path('questiondislike/<str:pk>', views.questionDislike, name='questiondislike'),
+    path('addanswer/<str:pk>', views.questionDislike, name='addanswer'),
 
     path('theme/<str:pk>', views.theme, name='theme'),
 
